@@ -1,0 +1,43 @@
+name: pointsthing
+version: '1.0-SNAPSHOT'
+main: mikey.pointsthing.Pointsthing
+api-version: '1.19'
+softdepend: ["PlaceholderAPI"]
+commands:
+  points:
+    description: Check your points or another player's points
+    usage: /points [player]
+    aliases: [p]
+  clearpoints:
+    description: Clear all player points
+    usage: /clearpoints
+    permission: pointsthing.clearpoints
+  leaderboard:
+    description: Display the points leaderboard
+    usage: /leaderboard
+    aliases: [lb, top]
+  placeholdertest:
+    description: Test placeholder replacement
+    usage: /placeholdertest <placeholder>
+    permission: pointsthing.admin
+  papitest:
+    description: Test PlaceholderAPI integration
+    usage: /papitest <placeholder>
+    permission: pointsthing.admin
+  pointsreload:
+    description: Reload the plugin configuration
+    usage: /pointsreload
+    permission: pointsthing.admin
+    aliases: [preload]
+  armorbonus:
+    description: Check how many bonus points would be awarded for killing a player based on their armor
+    usage: /armorbonus [player]
+    aliases: [ab, bonus]
+
+permissions:
+  pointsthing.clearpoints:
+    description: Allows clearing all player points
+    default: op
+  pointsthing.admin:
+    description: Gives access to administrative commands
+    default: op

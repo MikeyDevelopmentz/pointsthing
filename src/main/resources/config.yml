@@ -1,0 +1,136 @@
+# PointsThing Configuration
+
+# Points settings
+points:
+  # Points awarded for killing a player
+  kill-points: 500
+  
+  # Whether to save points data automatically (in seconds)
+  # Set to 0 to disable auto-save
+  auto-save: 300
+  
+  # Whether to reset points on player death
+  reset-on-death: false
+  
+  # Starting points for new players
+  starting-points: 0
+  
+  # Maximum points a player can have (set to -1 for unlimited)
+  max-points: -1
+  
+  # if true, players can go into negative points (debt)
+  # overrides the death-penalty minimum-points floor
+  allow-debt: false
+  
+  # victim loses points when they die to another player
+  # only runs if reset-on-death is false
+  death-penalty:
+    enabled: true
+    # match  = victim loses the same amount the killer gained (base + armor bonus)
+    # fixed  = always lose "amount"
+    # percent = lose "percent"% of current points
+    mode: match
+    amount: 100
+    percent: 10
+    # never drop below this
+    minimum-points: 0
+  
+  # Armor bonus points system - Points awarded based on victim's armor
+  armor-bonus:
+    # Whether to enable armor bonus points
+    enabled: true
+    
+    # Base points for killing a player with no armor (naked victim)
+    naked-kill: 0
+    
+    # Points multiplier for different victim armor types
+    # The better the victim's armor, the more points awarded to the killer
+    armor-multipliers:
+      leather: 0.5    # +12.5 points per piece
+      gold: 0.8       # +20 points per piece
+      chainmail: 1.0   # +25 points per piece
+      iron: 1.5        # +37.5 points per piece
+      diamond: 2.0     # +50 points per piece
+      netherite: 3.0   # +75 points per piece
+    
+    # Bonus per armor piece (helmet, chestplate, leggings, boots)
+    # This is multiplied by the armor type multiplier
+    armor-piece-bonus: 25
+    
+    # Enchantment bonus points (added per level of enchantment on victim's gear)
+    # More enchantments on victim = more points for the killer
+    enchantment-bonus:
+      protection: 10
+      fire_protection: 5
+      feather_falling: 5
+      blast_protection: 5
+      projectile_protection: 5
+      thorns: 15
+      respiration: 5
+      depth_strider: 5
+      aqua_affinity: 5
+      frost_walker: 10
+      soul_speed: 10
+      
+    # Maximum bonus points from victim's armor and enchantments
+    # Set to -1 for unlimited
+    max-bonus: 500
+    
+    # Debug armor bonus calculations
+    debug-bonus: false
+  
+# Leaderboard settings
+leaderboard:
+  # Maximum number of players to show on the leaderboard
+  max-players: 10
+  
+  # Cache settings (in seconds)
+  cache-duration: 60
+  
+  # Format settings
+  title: "&e&l===== POINTS LEADERBOARD ====="
+  footer: "&e&l==========================="
+  
+  # Entry format (variables: {position}, {name}, {points})
+  entry-format:
+    '1': "&6#1 &e{name} &7- &a{points} points"
+    '2': "&7#2 &e{name} &7- &a{points} points"
+    '3': "&c#3 &e{name} &7- &a{points} points"
+    'default': "&f#{position} &e{name} &7- &a{points} points"
+
+# Messages
+messages:
+  # Points received message (variables: {points}, {total}, {bonus})
+  points-received: "&a+{points} points! &7(&a+{bonus} victim armor bonus&7) &aYou now have {total} points."
+  
+  # Points lost on death (variables: {points}, {total})
+  points-lost: "&c-{points} points! &7You now have &c{total}&7 points."
+  
+  # Points command responses
+  points-self: "&6Your points: &e{points}"
+  points-other: "&6{player}'s points: &e{points}"
+  player-not-found: "&cPlayer not found!"
+  
+  # Admin messages
+  points-cleared: "&aAll player points have been cleared!"
+
+# where to save the data
+# set type to "file" to just use points.yml, or "mysql" to use a database
+storage:
+  type: file
+
+  # only used if type is mysql
+  # table gets created automatically if it doesnt exist
+  mysql:
+    host: localhost
+    port: 3306
+    database: pointsthing
+    username: root
+    password: ""
+    table: player_points
+    use-ssl: false
+
+# Debug options
+debug:
+  # Enable debug logging
+  enabled: false
